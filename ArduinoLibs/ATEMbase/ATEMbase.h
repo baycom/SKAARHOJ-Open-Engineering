@@ -32,7 +32,7 @@ you can keep a clear conscience: http://skaarhoj.com/about/licenses/
 
 #include "Arduino.h"
 
-#ifdef ESP8266
+#if defined ESP8266 || defined ESP32
 #include <WifiUDP.h>
 #else
 #include <EthernetUdp.h>
@@ -51,10 +51,12 @@ you can keep a clear conscience: http://skaarhoj.com/about/licenses/
 
 #define ATEM_debug 0				// If "1" (true), more debugging information may hit the serial monitor, in particular when _serialDebug = 0x80. Setting this to "0" is recommended for production environments since it saves on flash memory.
 
+#define ATEM_maxPacketId 1<<15
+
 class ATEMbase
 {
   protected:
-  	#ifdef ESP8266
+  	#if defined ESP8266 || defined ESP32
   	WiFiUDP _Udp;
   	#else
 	EthernetUDP _Udp;					// UDP object for communication, see constructor.
